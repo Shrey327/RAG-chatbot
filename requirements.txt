@@ -7,9 +7,6 @@ streamlit==1.40.2
 python-dotenv==1.1.0
 openai==1.78.1
 tiktoken==0.9.0
-unstructured==0.17.2
-unstructured[pdf]==0.17.2
-unstructured[pptx]==0.17.2
 PyMuPDF==1.25.5
 python-pptx==1.0.2
 pdf2image==1.17.0

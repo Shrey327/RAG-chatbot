@@ -1,6 +1,6 @@
 import os
 import streamlit as st
-from langchain_community.document_loaders import DirectoryLoader, PyMuPDFLoader
+from langchain_community.document_loaders import PyMuPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
@@ -8,6 +8,7 @@ from langchain.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 from dotenv import load_dotenv
+import glob
 
 load_dotenv()
 
@@ -23,8 +24,17 @@ if 'vectorstore' not in st.session_state:
 
 def load_documents(directory_path):
     """Load documents from the specified directory"""
-    loader = DirectoryLoader(directory_path, glob="**/*.pdf")
-    docs = loader.load()
+    docs = []
+    pdf_files = glob.glob(os.path.join(directory_path, "**/*.pdf"), recursive=True)
+    
+    for pdf_file in pdf_files:
+        try:
+            loader = PyMuPDFLoader(pdf_file)
+            file_docs = loader.load()
+            docs.extend(file_docs)
+        except Exception as e:
+            st.warning(f"Error loading file {os.path.basename(pdf_file)}: {str(e)}")
+    
     return docs
 
 def create_vectorstore(docs):
