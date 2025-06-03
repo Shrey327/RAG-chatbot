@@ -2,7 +2,7 @@ import os
 import streamlit as st
 from langchain_community.document_loaders import PyMuPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.vectorstores import FAISS
+from langchain_community.vectorstores import DocArrayInMemorySearch
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
@@ -42,7 +42,7 @@ def create_vectorstore(docs):
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
     splits = text_splitter.split_documents(docs)
     
-    vectorstore = FAISS.from_documents(
+    vectorstore = DocArrayInMemorySearch.from_documents(
         documents=splits,
         embedding=OpenAIEmbeddings()
     )
