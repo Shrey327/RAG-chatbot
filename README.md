@@ -1,6 +1,6 @@
 # RAG Document Q&A System
 
-This is a Retrieval-Augmented Generation (RAG) application that allows users to upload PDF documents and ask questions about their content. The system uses LangChain, ChromaDB, and OpenAI's GPT models to provide accurate answers based on the document content.
+This is a Retrieval-Augmented Generation (RAG) application that allows users to upload PDF documents and ask questions about their content. The system uses LangChain, InMemoryVectorStore, and OpenAI's GPT models to provide accurate answers based on the document content.
 
 ## Features
 
